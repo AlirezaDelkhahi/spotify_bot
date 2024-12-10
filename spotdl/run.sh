@@ -1,0 +1,3 @@
+python collectstatics
+python migrate
+python runserver

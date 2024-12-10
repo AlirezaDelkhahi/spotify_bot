@@ -1,0 +1,38 @@
+services:
+
+  spot_dl:
+    build:
+      context: ../spotdl
+      dockerfile: ../spotdl/Dockerfile
+    image: spot_dl:latest
+    restart: always
+    container_name: spot_dl
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ../spotdl/:/code
+      - ../musics:/code/musics
+      - .spotdl-config.json:/root/.spotdl/config.json
+    env_file:
+      - .env
+    entrypoint: python3 manage.py
+    command: run_bot
+    ports:
+      - "8000:8000"
+  admin:
+    build:
+      context: ../spotdl
+      dockerfile: ../spotdl/Dockerfile
+    image: spot_dl:latest
+    restart: always
+    container_name: admin
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ../spotdl/:/code
+      - ../musics:/code/musics
+      - .spotdl-config.json:/root/.spotdl/config.json
+    env_file:
+      - .env
+    entrypoint: python3 manage.py
+    command: runserver 0.0.0.0:8000
+    ports:
+      - "8020:8000"

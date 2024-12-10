@@ -1,0 +1,4 @@
+django
+djangorestframework
+pydantic
+python-telegram-bot
